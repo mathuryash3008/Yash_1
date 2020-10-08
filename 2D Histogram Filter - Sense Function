@@ -1,0 +1,31 @@
+def sense(color, grid, beliefs, p_hit, p_miss):
+    height = len(grid)
+    width = len(grid[0])
+    area = height * width
+    belief_per_cell = 1.0 / area
+    new_beliefs_nonorm = []
+    new_beliefs = []
+    hit = belief_per_cell * p_hit
+    miss = belief_per_cell * p_miss
+    
+    for i in range(height):
+        brow = []
+        for j in range(width):
+            if color == grid[i][j]:
+                brow.append(hit)
+                
+            else:
+                brow.append(miss)             
+                
+        new_beliefs_nonorm.append(brow)        
+    
+    norm = np.sum(new_beliefs_nonorm)
+   
+     
+    for i in range(len(new_beliefs_nonorm)):
+        crow =[]
+        for j in range(len(new_beliefs_nonorm[0])):
+            crow.append(new_beliefs_nonorm[i][j]/norm)
+        new_beliefs.append(crow)                   
+    
+    return new_beliefs
